@@ -5,6 +5,9 @@ import QtQuick 2.15
 Canvas {
     id: root
 
+    renderTarget: Canvas.FramebufferObject
+    renderStrategy: Canvas.Threaded
+
     property bool reducedMotion: false
     property int preset: 0
     property real phase: 0
@@ -45,20 +48,18 @@ Canvas {
         }
     }
 
-    Timer {
-        interval: 33
+    NumberAnimation on phase {
+        from: 0
+        to: Math.PI * 2
+        duration: 26000
         running: root.visible && !root.reducedMotion
-        repeat: true
-        onTriggered: {
-            root.phase += 0.008;
-            root.requestPaint();
-        }
+        loops: Animation.Infinite
     }
 
+    onPhaseChanged: requestPaint()
     onWidthChanged: requestPaint()
     onHeightChanged: requestPaint()
     onPresetChanged: requestPaint()
     onReducedMotionChanged: requestPaint()
     Component.onCompleted: requestPaint()
 }
-

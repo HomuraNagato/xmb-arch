@@ -7,6 +7,7 @@ and a controller-oriented settings category.
 ## Requirements
 
 - Pegasus Arch with the `api.actions` theme interface
+- Qt 5 Graphical Effects
 - A 16:9 display between 1280x720 and 3840x2160
 - Game metadata containing `assets.tile`, `assets.box_front`, or `assets.poster`
   and optionally `assets.background`
@@ -25,3 +26,5 @@ package, then select **XMB Arch** in Pegasus settings.
 The visual design, wave rendering, icons, and sounds are original and do not
 include Sony assets.
 
+Category icons default to the frosted XMB treatment. Use **Settings → Category
+icon style** to switch between Frosted, Color, and Solid variants.
