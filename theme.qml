@@ -28,6 +28,7 @@ FocusScope {
     property int wavePreset: Number(api.memory.get("wavePreset") || 0)
     property int categoryIconStyle: Number(api.memory.get("categoryIconStyle") || 0)
     property string pendingPowerAction: ""
+    readonly property real ambientEffectStrength: gameBackdrop.status === Image.Ready ? 0.42 : 1.0
     readonly property var activeGamepad: Internal.gamepad.devices.count > 0
         ? Internal.gamepad.devices.get(0)
         : null
@@ -214,7 +215,21 @@ FocusScope {
             api.memory.set("categoryIconStyle", categoryIconStyle);
             break;
         case "fullscreen": api.actions.fullscreen = !api.actions.fullscreen; break;
-        case "controller": api.actions.openControllerSettings(); break;
+        case "add-steam-game":
+            contentActive = false;
+            settingsList.currentIndex = -1;
+            api.actions.openSteamDiscovery();
+            break;
+        case "update-artwork":
+            contentActive = false;
+            settingsList.currentIndex = -1;
+            api.actions.openArtworkEditor();
+            break;
+        case "controller":
+            contentActive = false;
+            settingsList.currentIndex = -1;
+            api.actions.openControllerSettings();
+            break;
         case "refresh": api.actions.refreshLibrary(); break;
         case "suspend": pendingPowerAction = "suspend"; break;
         case "quit": pendingPowerAction = "quit"; break;
@@ -345,6 +360,8 @@ FocusScope {
         ListElement { label: "Wave color"; action: "color" }
         ListElement { label: "Category icon style"; action: "category-icons" }
         ListElement { label: "Fullscreen"; action: "fullscreen" }
+        ListElement { label: "Add Steam game"; action: "add-steam-game" }
+        ListElement { label: "Update game artwork"; action: "update-artwork" }
         ListElement { label: "Controller mapping"; action: "controller" }
         ListElement { label: "Refresh library"; action: "refresh" }
         ListElement { label: "Suspend system"; action: "suspend" }
@@ -376,6 +393,7 @@ FocusScope {
     }
 
     Image {
+        id: gameBackdrop
         anchors.fill: parent
         source: root.currentGame
             ? root.currentGame.assets.background
@@ -399,6 +417,14 @@ FocusScope {
         anchors.fill: parent
         reducedMotion: root.reducedMotion
         preset: root.wavePreset
+        effectStrength: root.ambientEffectStrength
+    }
+
+    ParticleBackground {
+        anchors.fill: parent
+        reducedMotion: root.reducedMotion
+        preset: root.wavePreset
+        effectStrength: root.ambientEffectStrength
     }
 
     Text {

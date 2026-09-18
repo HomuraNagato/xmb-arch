@@ -28,3 +28,10 @@ include Sony assets.
 
 Category icons default to the frosted XMB treatment. Use **Settings → Category
 icon style** to switch between Frosted, Color, and Solid variants.
+
+The background uses a layered translucent ribbon and laterally drifting particles.
+Set **Settings → Wave motion** to Reduced to freeze the ribbons and hide the
+particles. Effects automatically dim when game artwork is visible.
+
+Use **Settings → Add Steam game** to import a game, or **Settings → Update game
+artwork** to manage its portrait, hero, and logo images.
